@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Fahim ❤ Areen — Our Universe</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Great+Vibes&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rose: #c0395a;
+    --deep-rose: #8b1a38;
+    --blush: #f5c6d0;
+    --gold: #d4af7a;
+    --gold-light: #f0d9b0;
+    --cream: #fdf6f0;
+    --dark: #1a0a10;
+    --darker: #0d0507;
+    --text-light: #f8eef0;
+    --text-muted: rgba(255,255,255,0.55);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--darker);
+    color: var(--text-light);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ─── CUSTOM CURSOR ─── */
+  .cursor-heart {
+    position: fixed;
+    pointer-events: none;
+    font-size: 14px;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s;
+    opacity: 0;
+  }
+
+  /* ─── CANVAS PARTICLES ─── */
+  #particles-canvas {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 18px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(13,5,7,0.95), transparent);
+  }
+
+  .nav-logo {
+    font-family: 'Great Vibes', cursive;
+    font-size: 28px;
+    color: var(--gold);
+    text-shadow: 0 0 20px rgba(212,175,122,0.5);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ─── MUSIC BUTTON ─── */
+  #music-btn {
+    position: fixed;
+    bottom: 24px; right: 24px;
+    z-index: 200;
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--rose), var(--deep-rose));
+    border: 1px solid rgba(212,175,122,0.4);
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 20px rgba(192,57,90,0.5), 0 4px 15px rgba(0,0,0,0.3);
+    transition: transform 0.3s, box-shadow 0.3s;
+    animation: pulse-btn 2s ease-in-out infinite;
+  }
+
+  #music-btn:hover { transform: scale(1.1); box-shadow: 0 0 30px rgba(192,57,90,0.7); }
+
+  @keyframes pulse-btn {
+    0%, 100% { box-shadow: 0 0 20px rgba(192,57,90,0.5); }
+    50% { box-shadow: 0 0 35px rgba(192,57,90,0.9), 0 0 60px rgba(192,57,90,0.3); }
+  }
+
+  /* ─── HERO SECTION ─── */
+  #hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 100px 30px 60px;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse at 50% 30%, rgba(139,26,56,0.4) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 80%, rgba(192,57,90,0.2) 0%, transparent 50%),
+      radial-gradient(ellipse at 20% 70%, rgba(212,175,122,0.1) 0%, transparent 40%),
+      var(--darker);
+    z-index: -1;
+  }
+
+  .hero-ornament {
+    font-size: 13px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.7;
+    margin-bottom: 20px;
+    animation: fadeInDown 1.2s ease forwards;
+  }
+
+  .hero-names {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(62px, 16vw, 110px);
+    line-height: 1;
+    background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 40%, var(--rose) 70%, var(--gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 30px rgba(212,175,122,0.4));
+    animation: fadeInUp 1.4s ease forwards;
+  }
+
+  .hero-heart-divider {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 18px 0;
+    animation: fadeIn 1.6s ease forwards;
+  }
+
+  .hero-heart-divider .line {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold));
+  }
+
+  .hero-heart-divider .line:last-child {
+    background: linear-gradient(to left, transparent, var(--gold));
+  }
+
+  .hero-heart-divider .heart {
+    font-size: 22px;
+    color: var(--rose);
+    animation: heartbeat 1.4s ease-in-out infinite;
+    filter: drop-shadow(0 0 10px rgba(192,57,90,0.8));
+  }
+
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    14% { transform: scale(1.25); }
+    28% { transform: scale(1); }
+    42% { transform: scale(1.15); }
+    70% { transform: scale(1); }
+  }
+
+  .hero-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(16px, 4.5vw, 22px);
+    color: rgba(245,198,208,0.85);
+    letter-spacing: 1px;
+    max-width: 340px;
+    line-height: 1.7;
+    animation: fadeInUp 1.8s ease forwards;
+  }
+
+  .hero-date {
+    margin-top: 28px;
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--gold);
+    opacity: 0.6;
+    text-transform: uppercase;
+    animation: fadeIn 2s ease forwards;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    opacity: 0.4;
+    animation: bounce 2.5s ease-in-out infinite;
+  }
+
+  .scroll-hint span {
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .scroll-hint .arrow { font-size: 18px; color: var(--gold); }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  /* ─── SECTION BASE ─── */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 80px 24px;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .section-eyebrow {
+    font-size: 9px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.7;
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(38px, 10vw, 58px);
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 15px rgba(212,175,122,0.3));
+  }
+
+  .ornamental-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 16px auto 0;
+    width: fit-content;
+  }
+
+  .ornamental-divider .ol { width: 50px; height: 1px; background: linear-gradient(to right, transparent, var(--rose)); }
+  .ornamental-divider .or { width: 50px; height: 1px; background: linear-gradient(to left, transparent, var(--rose)); }
+  .ornamental-divider .od { font-size: 12px; color: var(--rose); }
+
+  /* ─── OUR STORY ─── */
+  #story {
+    background: linear-gradient(to bottom, var(--darker), #120608, var(--darker));
+  }
+
+  .story-card {
+    background: linear-gradient(135deg, rgba(139,26,56,0.12), rgba(212,175,122,0.06));
+    border: 1px solid rgba(212,175,122,0.12);
+    border-radius: 20px;
+    padding: 32px 24px;
+    max-width: 500px;
+    margin: 0 auto;
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .story-card::before {
+    content: '❝';
+    position: absolute;
+    top: 12px; left: 20px;
+    font-size: 60px;
+    color: var(--rose);
+    opacity: 0.15;
+    font-family: 'Cormorant Garamond', serif;
+    line-height: 1;
+  }
+
+  .story-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(15px, 4vw, 18px);
+    line-height: 1.9;
+    color: rgba(248,238,240,0.85);
+    text-align: center;
+    font-style: italic;
+  }
+
+  .story-signature {
+    text-align: right;
+    margin-top: 20px;
+    font-family: 'Great Vibes', cursive;
+    font-size: 28px;
+    color: var(--gold);
+    opacity: 0.8;
+  }
+
+  /* ─── TIMELINE ─── */
+  #timeline {
+    background: var(--darker);
+  }
+
+  .timeline-track {
+    position: relative;
+    max-width: 420px;
+    margin: 0 auto;
+    padding-left: 28px;
+  }
+
+  .timeline-track::before {
+    content: '';
+    position: absolute;
+    left: 10px; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--rose), var(--gold), transparent);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 42px;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: all 0.7s ease;
+  }
+
+  .timeline-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: -23px;
+    top: 4px;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--rose), var(--deep-rose));
+    border: 2px solid var(--gold);
+    box-shadow: 0 0 12px rgba(192,57,90,0.6);
+  }
+
+  .timeline-date {
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .timeline-content h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--blush);
+    margin-bottom: 6px;
+  }
+
+  .timeline-content p {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  /* ─── GALLERY ─── */
+  #gallery {
+    background: linear-gradient(to bottom, var(--darker), #0f0408, var(--darker));
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .gallery-item {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    aspect-ratio: 1;
+    cursor: pointer;
+    border: 1px solid rgba(212,175,122,0.1);
+    transform: scale(1);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .gallery-item:nth-child(3) { grid-column: span 2; aspect-ratio: 2/1; }
+
+  .gallery-item:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 40px rgba(192,57,90,0.4);
+  }
+
+  .gallery-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: saturate(0.9) brightness(0.88);
+    transition: filter 0.4s ease, transform 0.6s ease;
+  }
+
+  .gallery-item:hover img {
+    filter: saturate(1.1) brightness(1);
+    transform: scale(1.07);
+  }
+
+  .gallery-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(139,26,56,0.6) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s;
+    display: flex;
+    align-items: flex-end;
+    padding: 14px;
+  }
+
+  .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+  .gallery-caption {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--cream);
+  }
+
+  /* LIGHTBOX */
+  #lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 500;
+    background: rgba(10,3,5,0.95);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 16px;
+    backdrop-filter: blur(10px);
+  }
+
+  #lightbox.active { display: flex; }
+
+  #lightbox img {
+    max-width: 90vw;
+    max-height: 70vh;
+    border-radius: 16px;
+    object-fit: contain;
+    border: 1px solid rgba(212,175,122,0.2);
+  }
+
+  #lightbox-close {
+    position: absolute;
+    top: 20px; right: 20px;
+    background: none; border: none;
+    color: var(--gold); font-size: 28px;
+    cursor: pointer;
+  }
+
+  /* ─── POEM ─── */
+  #poems {
+    background: var(--darker);
+    position: relative;
+    overflow: hidden;
+  }
+
+  #poems::before {
+    content: '';
+    position: absolute;
+    top: -80px; left: 50%;
+    transform: translateX(-50%);
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(192,57,90,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .poem-card {
+    background: linear-gradient(145deg, rgba(139,26,56,0.08), rgba(212,175,122,0.04));
+    border: 1px solid rgba(212,175,122,0.15);
+    border-radius: 20px;
+    padding: 36px 28px;
+    max-width: 420px;
+    margin: 0 auto 28px;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+  }
+
+  .poem-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .poem-card::after {
+    content: '♥';
+    position: absolute;
+    bottom: 16px; right: 20px;
+    font-size: 60px;
+    color: var(--rose);
+    opacity: 0.05;
+  }
+
+  .poem-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: 32px;
+    color: var(--gold);
+    margin-bottom: 18px;
+    display: block;
+    text-align: center;
+  }
+
+  .poem-body {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(14px, 3.8vw, 17px);
+    line-height: 2;
+    color: rgba(248,238,240,0.82);
+    text-align: center;
+    font-style: italic;
+  }
+
+  .poem-body .bn {
+    font-style: normal;
+    font-size: clamp(13px, 3.5vw, 15px);
+    color: rgba(245,198,208,0.7);
+    display: block;
+    margin-top: 2px;
+  }
+
+  /* ─── MESSAGES ─── */
+  #messages {
+    background: linear-gradient(to bottom, var(--darker), #120608, var(--darker));
+  }
+
+  .messages-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .msg-bubble {
+    padding: 20px 22px;
+    border-radius: 20px;
+    position: relative;
+    max-width: 88%;
+    opacity: 0;
+    transition: all 0.7s ease;
+  }
+
+  .msg-bubble.visible { opacity: 1; transform: none !important; }
+
+  .msg-bubble.from-him {
+    background: linear-gradient(135deg, rgba(139,26,56,0.3), rgba(192,57,90,0.15));
+    border: 1px solid rgba(192,57,90,0.25);
+    border-bottom-left-radius: 4px;
+    align-self: flex-start;
+    transform: translateX(-20px);
+  }
+
+  .msg-bubble.from-her {
+    background: linear-gradient(135deg, rgba(212,175,122,0.15), rgba(240,217,176,0.08));
+    border: 1px solid rgba(212,175,122,0.2);
+    border-bottom-right-radius: 4px;
+    align-self: flex-end;
+    transform: translateX(20px);
+  }
+
+  .msg-sender {
+    font-size: 9px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .msg-bubble.from-him .msg-sender { color: var(--rose); }
+  .msg-bubble.from-her .msg-sender { color: var(--gold); }
+
+  .msg-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(14px, 3.8vw, 17px);
+    line-height: 1.8;
+    font-style: italic;
+  }
+
+  /* ─── REASONS ─── */
+  #reasons {
+    background: var(--darker);
+    text-align: center;
+  }
+
+  .reasons-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .reason-card {
+    background: linear-gradient(145deg, rgba(139,26,56,0.1), rgba(212,175,122,0.04));
+    border: 1px solid rgba(212,175,122,0.1);
+    border-radius: 16px;
+    padding: 22px 16px;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.6s ease;
+  }
+
+  .reason-card.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .reason-icon { font-size: 28px; margin-bottom: 10px; display: block; }
+
+  .reason-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--blush);
+    margin-bottom: 6px;
+  }
+
+  .reason-text {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* ─── PROMISE ─── */
+  #promise {
+    background: linear-gradient(135deg, rgba(139,26,56,0.2), rgba(212,175,122,0.05), rgba(139,26,56,0.2));
+    border-top: 1px solid rgba(212,175,122,0.1);
+    border-bottom: 1px solid rgba(212,175,122,0.1);
+    text-align: center;
+  }
+
+  .promise-ring {
+    width: 100px; height: 100px;
+    border-radius: 50%;
+    border: 2px solid var(--gold);
+    margin: 0 auto 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: 0 0 30px rgba(212,175,122,0.2), inset 0 0 20px rgba(212,175,122,0.05);
+    animation: ring-glow 3s ease-in-out infinite;
+  }
+
+  .promise-ring::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    border: 1px solid rgba(212,175,122,0.15);
+  }
+
+  .promise-ring::after {
+    content: '';
+    position: absolute;
+    inset: -16px;
+    border-radius: 50%;
+    border: 1px solid rgba(212,175,122,0.07);
+  }
+
+  @keyframes ring-glow {
+    0%, 100% { box-shadow: 0 0 30px rgba(212,175,122,0.2); }
+    50% { box-shadow: 0 0 50px rgba(212,175,122,0.4), 0 0 80px rgba(192,57,90,0.2); }
+  }
+
+  .promise-ring-emoji { font-size: 36px; }
+
+  .promise-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(17px, 4.5vw, 22px);
+    font-style: italic;
+    line-height: 2;
+    color: rgba(248,238,240,0.85);
+    max-width: 380px;
+    margin: 0 auto;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--darker);
+    text-align: center;
+    padding: 50px 24px 40px;
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid rgba(212,175,122,0.08);
+  }
+
+  .footer-names {
+    font-family: 'Great Vibes', cursive;
+    font-size: 46px;
+    color: var(--gold);
+    margin-bottom: 10px;
+    filter: drop-shadow(0 0 20px rgba(212,175,122,0.4));
+  }
+
+  .footer-forever {
+    font-size: 9px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .footer-hearts {
+    margin: 20px 0 10px;
+    font-size: 16px;
+    animation: heartbeat 1.4s ease-in-out infinite;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* Floating hearts */
+  .floating-hearts-container {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .fheart {
+    position: absolute;
+    bottom: -50px;
+    font-size: 14px;
+    opacity: 0;
+    animation: floatHeart linear infinite;
+    color: var(--rose);
+    filter: blur(0.5px);
+  }
+
+  @keyframes floatHeart {
+    0% { transform: translateY(0) rotate(0deg) scale(0.5); opacity: 0; }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.3; }
+    100% { transform: translateY(-110vh) rotate(720deg) scale(1); opacity: 0; }
+  }
+
+  /* Shimmer effect */
+  .shimmer {
+    background: linear-gradient(90deg, transparent 0%, rgba(212,175,122,0.15) 50%, transparent 100%);
+    background-size: 200% 100%;
+    animation: shimmer 3s linear infinite;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 380px) {
+    .gallery-grid { grid-template-columns: 1fr; }
+    .gallery-item:nth-child(3) { grid-column: span 1; aspect-ratio: 1; }
+    .reasons-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- BGM Audio (place bgm.mp3 in same folder) -->
+<audio id="bgm" loop preload="none">
+  <source src="bgm.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Cursor Heart -->
+<div class="cursor-heart" id="cursor-heart">💕</div>
+
+<!-- Particles Canvas -->
+<canvas id="particles-canvas"></canvas>
+
+<!-- Floating Hearts -->
+<div class="floating-hearts-container" id="floating-hearts"></div>
+
+<!-- Music Button -->
+<button id="music-btn" title="Play / Pause BGM">🎵</button>
+
+<!-- Lightbox -->
+<div id="lightbox">
+  <button id="lightbox-close">✕</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<!-- NAVIGATION -->
+<nav>
+  <div class="nav-logo">F ❤ A</div>
+  <ul class="nav-links">
+    <li><a href="#story">Story</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#poems">Poems</a></li>
+    <li><a href="#messages">Messages</a></li>
+  </ul>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <p class="hero-ornament">✦ A Love Story ✦</p>
+  <h1 class="hero-names">Fahim & Areen</h1>
+  <div class="hero-heart-divider">
+    <div class="line"></div>
+    <div class="heart">♥</div>
+    <div class="line"></div>
+  </div>
+  <p class="hero-tagline">
+    "Two souls, one universe — written in the stars, sealed with a kiss."
+  </p>
+  <p class="hero-date">∞ Forever & Always ∞</p>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="arrow">↓</div>
+  </div>
+</section>
+
+<!-- ─── OUR STORY ─── -->
+<section id="story">
+  <div class="section-header">
+    <span class="section-eyebrow">✦ Chapter One ✦</span>
+    <h2 class="section-title">Our Story</h2>
+    <div class="ornamental-divider">
+      <div class="ol"></div><div class="od">♦</div><div class="or"></div>
+    </div>
+  </div>
+  <div class="story-card shimmer">
+    <p class="story-text">
+      আমরা দুজন, দুটি আলাদা পৃথিবী থেকে এসেছিলাম — তবুও যেন মনে হয়েছিল,
+      এই মহাবিশ্ব আমাদের একদিন মিলিয়ে দেওয়ার জন্যই তৈরি হয়েছিল।
+      তোমার হাসি আমার দিন বদলে দেয়, তোমার কণ্ঠস্বর আমার রাত সুন্দর করে তোলে।
+      <br><br>
+      Fahim-এর প্রতিটি মুহূর্ত Areen-কে ছাড়া অসম্পূর্ণ।
+      এটি কেবল একটি প্রেমের গল্প নয় — এটি আমাদের মহাবিশ্বের সবচেয়ে সুন্দর অধ্যায়।
+    </p>
+    <p class="story-signature">Fahim × Areen</p>
+  </div>
+</section>
+
+<!-- ─── TIMELINE ─── -->
+<section id="timeline">
+  <div class="section-header">
+    <span class="section-eyebrow">✦ Our Journey ✦</span>
+    <h2 class="section-title">Milestones</h2>
+    <div class="ornamental-divider">
+      <div class="ol"></div><div class="od">♦</div><div class="or"></div>
+    </div>
+  </div>
+  <div class="timeline-track">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <p class="timeline-date">The Beginning</p>
+      <div class="timeline-content">
+        <h3>First Hello 🌸</h3>
+        <p>সেই প্রথম কথা, যেটা বদলে দিয়েছিল সব। একটা ছোট্ট "হ্যালো" যা হয়ে গেল আমাদের গল্পের প্রথম পংক্তি।</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <p class="timeline-date">The Spark</p>
+      <div class="timeline-content">
+        <h3>First Date ☕</h3>
+        <p>ঘড়ির কাঁটা ভুলে গিয়েছিলাম, শুধু তোমার চোখের মধ্যে হারিয়ে ছিলাম। সময় যেন থেমে গিয়েছিল।</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <p class="timeline-date">Forever</p>
+      <div class="timeline-content">
+        <h3>First "I Love You" 💌</h3>
+        <p>তিনটি শব্দ, অনন্ত অর্থ। সেই মুহূর্তটা আমার হৃদয়ে চিরকাল খোদাই হয়ে আছে।</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <p class="timeline-date">Always & Forever</p>
+      <div class="timeline-content">
+        <h3>Every Day Together 🌙</h3>
+        <p>প্রতিটি সকাল তোমার কথা ভেবে, প্রতিটি রাত তোমার স্বপ্নে। তুমিই আমার সব।</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── GALLERY ─── -->
+<section id="gallery">
+  <div class="section-header">
+    <span class="section-eyebrow">✦ Captured Moments ✦</span>
+    <h2 class="section-title">Our Gallery</h2>
+    <div class="ornamental-divider">
+      <div class="ol"></div><div class="od">♦</div><div class="or"></div>
+    </div>
+  </div>
+
+  <!-- 
+    ══════════════════════════════════════════════
+    📸 PHOTO INSTRUCTION:
+    Same folder এ pics রাখুন এই নামে:
+    pic1.jpg, pic2.jpg, pic3.jpg, pic4.jpg, pic5.jpg
+    ══════════════════════════════════════════════
+  -->
+  <div class="gallery-grid">
+    <div class="gallery-item" onclick="openLightbox('pic1.jpg')">
+      <img src="pic1.jpg" alt="Fahim & Areen" onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'300\'><rect fill=\'%238b1a38\' width=\'300\' height=\'300\'/><text x=\'50%25\' y=\'45%25\' text-anchor=\'middle\' fill=\'%23d4af7a\' font-size=\'48\'>💕</text><text x=\'50%25\' y=\'65%25\' text-anchor=\'middle\' fill=\'rgba(255,255,255,0.4)\' font-size=\'12\'>Place pic1.jpg here</text></svg>'">
+      <div class="gallery-overlay"><span class="gallery-caption">Our Moment ✨</span></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox('pic2.jpg')">
+      <img src="pic2.jpg" alt="Fahim & Areen" onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'300\'><rect fill=\'%231a0a10\' width=\'300\' height=\'300\'/><text x=\'50%25\' y=\'45%25\' text-anchor=\'middle\' fill=\'%23d4af7a\' font-size=\'48\'>🌹</text><text x=\'50%25\' y=\'65%25\' text-anchor=\'middle\' fill=\'rgba(255,255,255,0.4)\' font-size=\'12\'>Place pic2.jpg here</text></svg>'">
+      <div class="gallery-overlay"><span class="gallery-caption">Sweet Memory 🌹</span></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox('pic3.jpg')">
+      <img src="pic3.jpg" alt="Fahim & Areen" onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'600\' height=\'300\'><rect fill=\'%23120608\' width=\'600\' height=\'300\'/><text x=\'50%25\' y=\'45%25\' text-anchor=\'middle\' fill=\'%23d4af7a\' font-size=\'48\'>💑</text><text x=\'50%25\' y=\'65%25\' text-anchor=\'middle\' fill=\'rgba(255,255,255,0.4)\' font-size=\'14\'>Place pic3.jpg here — Fahim ❤ Areen</text></svg>'">
+      <div class="gallery-overlay"><span class="gallery-caption">Together Forever 💑</span></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox('pic4.jpg')">
+      <img src="pic4.jpg" alt="Fahim & Areen" onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'300\'><rect fill=\'%238b1a38\' width=\'300\' height=\'300\'/><text x=\'50%25\' y=\'45%25\' text-anchor=\'middle\' fill=\'%23d4af7a\' font-size=\'48\'>🌙</text><text x=\'50%25\' y=\'65%25\' text-anchor=\'middle\' fill=\'rgba(255,255,255,0.4)\' font-size=\'12\'>Place pic4.jpg here</text></svg>'">
+      <div class="gallery-overlay"><span class="gallery-caption">Moonlit Memories 🌙</span></div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox('pic5.jpg')">
+      <img src="pic5.jpg" alt="Fahim & Areen" onerror="this.src='data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'300\'><rect fill=\'%231a0a10\' width=\'300\' height=\'300\'/><text x=\'50%25\' y=\'45%25\' text-anchor=\'middle\' fill=\'%23d4af7a\' font-size=\'48\'>⭐</text><text x=\'50%25\' y=\'65%25\' text-anchor=\'middle\' fill=\'rgba(255,255,255,0.4)\' font-size=\'12\'>Place pic5.jpg here</text></svg>'">
+      <div class="gallery-overlay"><span class="gallery-caption">Golden Moments ⭐</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── POEMS ─── -->
+<section id="poems">
+  <div class="section-header">
+    <span class="section-eyebrow">✦ Written in Stars ✦</span>
+    <h2 class="section-title">Love Poems</h2>
+    <div class="ornamental-divider">
+      <div class="ol"></div><div class="od">♦</div><div class="or"></div>
+    </div>
+  </div>
+
+  <div class="poem-card">
+    <span class="poem-title">তুমি আমার আলো</span>
+    <p class="poem-body">
+      অন্ধকার রাতে তুমি আমার চাঁদ,<br>
+      বিষণ্ন দিনে তুমি আমার গান।<br>
+      তোমার হাসিতে ফোটে হাজার ফুল,<br>
+      তোমাকে ভালোবাসা আমার সবচেয়ে সুন্দর ভুল।<br>
+      <br>
+      Areen, তুমি আমার হৃদয়ের কবিতা,<br>
+      প্রতিটি শ্বাসে তোমার অনুভূতি।<br>
+      <span class="bn">— Fahim, তোমার জন্যই ✦</span>
+    </p>
+  </div>
+
+  <div class="poem-card">
+    <span class="poem-title">A Universe in Your Eyes</span>
+    <p class="poem-body">
+      In your eyes, I see a thousand stars,<br>
+      In your smile, I find my home.<br>
+      No matter how far this world may take us,<br>
+      My heart always finds its way to you.<br>
+      <br>
+      Areen — you are not just my love,<br>
+      You are my favourite part of being alive.<br>
+      <span class="bn">— Yours always, Fahim 💌</span>
+    </p>
+  </div>
+
+  <div class="poem-card">
+    <span class="poem-title">তোমার জন্য</span>
+    <p class="poem-body">
+      যদি পৃথিবী একদিন থামে,<br>
+      তোমার নামেই থামুক।<br>
+      যদি সময় হয় চিরন্তন,<br>
+      তোমার সাথেই কাটুক।<br>
+      <br>
+      Fahim-এর প্রতিটি মুহূর্ত,<br>
+      Areen — তোমার নামে উৎসর্গ।<br>
+      <span class="bn">— Forever in love ♾️</span>
+    </p>
+  </div>
+</section>
+
+<!-- ─── MESSAGES ─── -->
+<section id="messages">
+  <div class="section-header">
+    <span class="section-eyebrow">✦ From The Heart ✦</span>
+    <h2 class="section-title">Love Messages</h2>
+    <div class="ornamental-divider">
+      <div class="ol"></div><div class="od">♦</div><div class="or"></div>
+    </div>
+  </div>
+
+  <div class="messages-grid">
+    <div class="msg-bubble from-him">
+      <span class="msg-sender">Fahim →</span>
+      <p class="msg-text">Areen, তুমি জানো না প্রতিটি সকালে তোমার কথা মনে হয় সবার আগে। তোমাকে ছাড়া একটা দিনও কল্পনা করতে পারি না। 💕</p>
+    </div>
+    <div class="msg-bubble from-her">
+      <span class="msg-sender">← Areen</span>
+      <p class="msg-text">Fahim, তুমি আমার সবচেয়ে বড় শক্তি। তোমার কথা মাথায় আসলে মনে হয় সব কিছু ঠিক হয়ে যাবে। ❤️</p>
+    </div>
+    <div class="msg-bubble from-him">
+      <span class="msg-sender">Fahim →</span>
+      <p class="msg-text">তোমার হাসিটা দেখার জন্য হলেও সারাটা জীবন পার করে দিতে পারব। তুমি আমার পৃথিবীর সবচেয়ে সুন্দর জিনিস। 🌹</p>
+    </div>
+    <div class="msg-bubble from-her">
+      <span class="msg-sender">← Areen</span>
+      <p class="msg-text">তোমার সাথে সময় কাটালে মনে হয় না যে সময় যাচ্ছে। তুমি আমার বেস্ট ফ্রেন্ড, আমার লাভ, আমার সব। 🌙</p>
+    </div>
+    <div class="msg-bubble from-him">
+      <span class="msg-sender">Fahim →</span>
+      <p class="msg-text">If loving you is wrong, I don't ever want to be right. You are my forever and always, Areen. ∞</p>
+    </div>
+    <div class="msg-bubble from-her">
+      <span class="msg-sender">← Areen</span>
+      <p class="msg-text">In this whole universe, I'm so glad I found you, Fahim. You make everything feel like magic. ✨</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── REASONS ─── -->
+<section id="reasons">
+  <div class="section-header">
+    <span class="section-eyebrow">✦ A Thousand Reasons ✦</span>
+    <h2 class="section-title">Why I Love You</h2>
+    <div class="ornamental-divider">
+      <div class="ol"></div><div class="od">♦</div><div class="or"></div>
+    </div>
+  </div>
+  <div class="reasons-grid">
+    <div class="reason-card">
+      <span class="reason-icon">😊</span>
+      <p class="reason-title">Your Smile</p>
+      <p class="reason-text">তোমার হাসিটা দেখলে মনে হয় পৃথিবীতে আর কোনো সমস্যা নেই।</p>
+    </div>
+    <div class="reason-card">
+      <span class="reason-icon">💬</span>
+      <p class="reason-title">Your Voice</p>
+      <p class="reason-text">তোমার গলার স্বর আমার সবচেয়ে পছন্দের সুর।</p>
+    </div>
+    <div class="reason-card">
+      <span class="reason-icon">🤝</span>
+      <p class="reason-title">Your Support</p>
+      <p class="reason-text">তুমি পাশে থাকলে মনে হয় সব কিছু সম্ভব।</p>
+    </div>
+    <div class="reason-card">
+      <span class="reason-icon">🌸</span>
+      <p class="reason-title">Your Soul</p>
+      <p class="reason-text">তোমার মন এতটাই সুন্দর, তার কাছে সব ফুলও মলিন।</p>
+    </div>
+    <div class="reason-card">
+      <span class="reason-icon">🌙</span>
+      <p class="reason-title">Your Presence</p>
+      <p class="reason-text">তুমি পাশে থাকলে একা রাতও মনে হয় উৎসব।</p>
+    </div>
+    <div class="reason-card">
+      <span class="reason-icon">♾️</span>
+      <p class="reason-title">Your Love</p>
+      <p class="reason-text">তোমার ভালোবাসাটাই আমার বেঁচে থাকার সবচেয়ে বড় কারণ।</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROMISE ─── -->
+<section id="promise">
+  <div class="section-header">
+    <span class="section-eyebrow">✦ Our Vow ✦</span>
+    <h2 class="section-title">My Promise</h2>
+    <div class="ornamental-divider">
+      <div class="ol"></div><div class="od">♦</div><div class="or"></div>
+    </div>
+  </div>
+  <div class="promise-ring">
+    <span class="promise-ring-emoji">💍</span>
+  </div>
+  <p class="promise-text">
+    Areen, আমি প্রতিজ্ঞা করছি —<br>
+    তোমার প্রতিটি হাসিকে ধরে রাখব,<br>
+    প্রতিটি কান্নায় পাশে থাকব,<br>
+    প্রতিটি স্বপ্নকে সত্যি করার চেষ্টা করব।<br><br>
+    তুমি আমার গল্পের শেষ পংক্তি,<br>
+    আমার মহাবিশ্বের কেন্দ্রবিন্দু।<br>
+    <br>
+    <em style="color: var(--gold); font-size: 0.9em;">— Forever yours, Fahim ♾️</em>
+  </p>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-hearts">❤️ ❤️ ❤️</div>
+  <p class="footer-names">Fahim ❤ Areen</p>
+  <p class="footer-forever">∞ written in the stars — forever & always ∞</p>
+</footer>
+
+<!-- ═══════════════════════════════════════════ -->
+<script>
+// ─── BGM CONTROL ───
+const audio = document.getElementById('bgm');
+const musicBtn = document.getElementById('music-btn');
+let isPlaying = false;
+
+function toggleMusic() {
+  if (!isPlaying) {
+    audio.play().then(() => {
+      isPlaying = true;
+      musicBtn.textContent = '🎶';
+    }).catch(() => {});
+  } else {
+    audio.pause();
+    isPlaying = false;
+    musicBtn.textContent = '🎵';
+  }
+}
+
+musicBtn.addEventListener('click', toggleMusic);
+
+// Auto-play on first touch (mobile)
+document.body.addEventListener('touchstart', function startOnTouch() {
+  if (!isPlaying) {
+    audio.play().then(() => {
+      isPlaying = true;
+      musicBtn.textContent = '🎶';
+    }).catch(() => {});
+  }
+  document.body.removeEventListener('touchstart', startOnTouch);
+}, { once: true });
+
+// ─── CURSOR HEART ───
+const cursorHeart = document.getElementById('cursor-heart');
+document.addEventListener('mousemove', e => {
+  cursorHeart.style.opacity = '1';
+  cursorHeart.style.left = e.clientX + 'px';
+  cursorHeart.style.top = e.clientY + 'px';
+});
+
+// ─── PARTICLES (Stars) ───
+const canvas = document.getElementById('particles-canvas');
+const ctx = canvas.getContext('2d');
+let stars = [];
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+
+function initStars() {
+  stars = [];
+  for (let i = 0; i < 140; i++) {
+    stars.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.5 + 0.2,
+      alpha: Math.random(),
+      speed: Math.random() * 0.3 + 0.05,
+      drift: (Math.random() - 0.5) * 0.2,
+      glow: Math.random() > 0.85
+    });
+  }
+}
+
+function drawStars() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  stars.forEach(s => {
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    if (s.glow) {
+      ctx.shadowBlur = 8;
+      ctx.shadowColor = `rgba(212,175,122,${s.alpha})`;
+      ctx.fillStyle = `rgba(212,175,122,${s.alpha})`;
+    } else {
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = `rgba(255,240,248,${s.alpha * 0.6})`;
+    }
+    ctx.fill();
+    s.y -= s.speed;
+    s.x += s.drift;
+    s.alpha += (Math.random() - 0.5) * 0.02;
+    s.alpha = Math.max(0.1, Math.min(0.9, s.alpha));
+    if (s.y < -5) { s.y = canvas.height + 5; s.x = Math.random() * canvas.width; }
+    if (s.x < -5) s.x = canvas.width + 5;
+    if (s.x > canvas.width + 5) s.x = -5;
+  });
+  requestAnimationFrame(drawStars);
+}
+
+resizeCanvas();
+initStars();
+drawStars();
+window.addEventListener('resize', () => { resizeCanvas(); initStars(); });
+
+// ─── FLOATING HEARTS ───
+const heartContainer = document.getElementById('floating-hearts');
+const heartChars = ['♥', '❤', '💕', '💗', '💖', '♡'];
+
+function spawnHeart() {
+  const h = document.createElement('div');
+  h.className = 'fheart';
+  h.textContent = heartChars[Math.floor(Math.random() * heartChars.length)];
+  h.style.left = Math.random() * 100 + 'vw';
+  h.style.fontSize = (Math.random() * 12 + 8) + 'px';
+  h.style.animationDuration = (Math.random() * 12 + 10) + 's';
+  h.style.animationDelay = Math.random() * 5 + 's';
+  h.style.opacity = '0';
+  heartContainer.appendChild(h);
+  setTimeout(() => h.remove(), 22000);
+}
+
+setInterval(spawnHeart, 1800);
+for (let i = 0; i < 6; i++) setTimeout(spawnHeart, i * 400);
+
+// ─── SCROLL ANIMATIONS ───
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.timeline-item, .poem-card, .msg-bubble, .reason-card').forEach(el => {
+  observer.observe(el);
+});
+
+// ─── LIGHTBOX ───
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+
+function openLightbox(src) {
+  lightboxImg.src = src;
+  lightbox.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+document.getElementById('lightbox-close').addEventListener('click', () => {
+  lightbox.classList.remove('active');
+  document.body.style.overflow = '';
+});
+
+lightbox.addEventListener('click', e => {
+  if (e.target === lightbox) {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+});
+
+// ─── TOUCH HEART BURST ───
+document.addEventListener('touchstart', e => {
+  const touch = e.touches[0];
+  createHeartBurst(touch.clientX, touch.clientY);
+});
+
+document.addEventListener('click', e => {
+  createHeartBurst(e.clientX, e.clientY);
+});
+
+function createHeartBurst(x, y) {
+  for (let i = 0; i < 5; i++) {
+    const h = document.createElement('div');
+    h.style.cssText = `
+      position: fixed;
+      left: ${x}px; top: ${y}px;
+      font-size: ${8 + Math.random() * 10}px;
+      pointer-events: none;
+      z-index: 9998;
+      animation: burstHeart 0.9s ease forwards;
+      --dx: ${(Math.random() - 0.5) * 80}px;
+      --dy: ${-Math.random() * 80 - 20}px;
+      color: ${Math.random() > 0.5 ? '#c0395a' : '#d4af7a'};
+    `;
+    h.textContent = heartChars[Math.floor(Math.random() * heartChars.length)];
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 950);
+  }
+}
+
+// Add burst keyframe dynamically
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes burstHeart {
+    0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+    60% { opacity: 1; }
+    100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.2); opacity: 0; }
+  }
+`;
+document.head.appendChild(style);
+</script>
+</body>
+</html>
