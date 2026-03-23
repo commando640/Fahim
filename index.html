@@ -38,10 +38,7 @@ body {
   cursor: none;
 }
 
-/* ═══ CUSTOM CURSOR ═══ */
-.cur { position:fixed; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); transition: transform .15s ease; }
-.cur-dot { width:8px; height:8px; background:var(--rose2); border-radius:50%; box-shadow:0 0 10px var(--rose2); }
-.cur-ring { width:36px; height:36px; border:1px solid rgba(201,168,76,.5); border-radius:50%; transition: all .3s ease; }
+
 
 /* ═══ PETAL CANVAS ═══ */
 #petalCanvas { position:fixed; inset:0; z-index:1; pointer-events:none; }
@@ -736,10 +733,6 @@ footer {
 <canvas id="starsCanvas"></canvas>
 <canvas id="petalCanvas"></canvas>
 
-<!-- Cursor -->
-<div class="cur cur-dot" id="curDot"></div>
-<div class="cur cur-ring" id="curRing"></div>
-
 <!-- Music Button -->
 <button id="musicBtn" onclick="toggleMusic()">🎵</button>
 
@@ -1166,18 +1159,7 @@ document.body.addEventListener('touchstart', ()=>{
   if(!playing){ tryPlayBGM(); }
 }, { once:true });
 
-// ════════════════════════════════════
-//  CURSOR
-// ════════════════════════════════════
-const curDot  = document.getElementById('curDot');
-const curRing = document.getElementById('curRing');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove', e=>{ mx=e.clientX; my=e.clientY; curDot.style.left=mx+'px'; curDot.style.top=my+'px'; });
-(function animRing(){
-  rx += (mx-rx)*.12; ry += (my-ry)*.12;
-  curRing.style.left=rx+'px'; curRing.style.top=ry+'px';
-  requestAnimationFrame(animRing);
-})();
+
 
 // ════════════════════════════════════
 //  STARS CANVAS
